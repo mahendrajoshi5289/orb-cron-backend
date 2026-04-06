@@ -267,4 +267,4 @@ setInterval(async () => {
   } catch (err) {
     console.error("Error:", err);
   }
-}, 2 * 60 * 1000); // 2 minutes
+}, 500); // 2 minutes
