@@ -234,3 +234,37 @@ app.post("/send-notification", async (req, res) => {
 
 
 app.listen(process.env.PORT || 3000);
+
+
+// 🚀 Function to send notification
+async function sendNotification(token, price) {
+  await admin.messaging().send({
+    token,
+    notification: {
+      title: "🚀 BUY SIGNAL",
+      body: `Price crossed 100 → ${price}`,
+    },
+  });
+
+  console.log("Notification sent ✅");
+}
+
+
+// 🔁 Run every 2 minutes
+setInterval(async () => {
+  try {
+    // 👉 Replace with real data (API / DB / strategy)
+    const data = {
+      price: Math.random() * 150,
+    };
+
+    console.log("Checking...", data.price);
+
+    if (checkSignal(data)) {
+      await sendNotification("USER_DEVICE_TOKEN", data.price);
+    }
+
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}, 2 * 60 * 1000); // 2 minutes
