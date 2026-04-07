@@ -271,6 +271,10 @@ getFcm_Tokens();
 async function sendNotify(tokensStrings)
 {
 
+  const data = {
+      price: Math.random() * 150,
+    };
+
   await sendNotification("dNtEcVrfXNWjsVnhu5K_e1:APA91bH4B6bT9bLmMe09bJkTErjwff5CtxeCXDm3y4w46xbI4Zx0owymTZuZubdk-RjWPurjecRNcSDb3KuDl2SQJR3G4NdTAUu9zc68_9HtEto-vdvKFN0", data.price);
 
 
