@@ -254,6 +254,9 @@ function getFcm_Tokens()
 
       console.log("found all tokens: " , tokens);
 
+      const tokensStrings = [...new Set(tokens.map(t => t.token))];
+      console.log(tokensStrings);
+
     } else {
       console.log("No data available");
     }
