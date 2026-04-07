@@ -260,9 +260,8 @@ setInterval(async () => {
 
     console.log("Checking...", data.price);
 
-    if (checkSignal(data)) {
-      await sendNotification("USER_DEVICE_TOKEN", data.price);
-    }
+    await sendNotification("USER_DEVICE_TOKEN", data.price);
+    
 
   } catch (err) {
     console.error("Error:", err);
