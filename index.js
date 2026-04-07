@@ -237,7 +237,7 @@ app.post("/send-notification", async (req, res) => {
 app.listen(process.env.PORT || 3000);
 
 
-getFcm_Tokens()
+function getFcm_Tokens()
 {
 
   const dbRef = ref(getDatabase(firebaseapp));
