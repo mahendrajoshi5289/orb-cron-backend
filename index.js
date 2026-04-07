@@ -10,15 +10,16 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 const firebaseConfig = {
 
-  apiKey: "AIzaSyCHCWIYPmZtgFopaukIfDCgq8CpIxcDzps",
-  authDomain: "fir-onlyrealdb.firebaseapp.com",
-  databaseURL: "https://fir-onlyrealdb-default-rtdb.firebaseio.com",
-  projectId: "fir-onlyrealdb",
-  storageBucket: "fir-onlyrealdb.firebasestorage.app",
-  messagingSenderId: "527158028414",
-  appId: "1:527158028414:web:5986c2c7b33f5af224d02f"
+  apiKey: "AIzaSyDJXO48--7-6WbO9yaPaArQnWWnmTVN2XU",
+  authDomain: "ntrade-engine.firebaseapp.com",
+  databaseURL: "https://ntrade-engine-default-rtdb.firebaseio.com",
+  projectId: "ntrade-engine",
+  storageBucket: "ntrade-engine.firebasestorage.app",
+  messagingSenderId: "155448679242",
+  appId: "1:155448679242:web:54a54fd5ae2a070b0affb3"
 
 };
+
 
 
 
@@ -236,6 +237,22 @@ app.post("/send-notification", async (req, res) => {
 app.listen(process.env.PORT || 3000);
 
 
+getFcm_Tokens()
+{
+
+  const dbRef = ref(getDatabase(firebaseapp));
+  get(child(dbRef, `users/`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });  
+}
+getFcm_Tokens();
+
 // 🚀 Function to send notification
 async function sendNotification(token, price) {
   await admin.messaging().send({
@@ -250,20 +267,20 @@ async function sendNotification(token, price) {
 }
 
 
-// 🔁 Run every 2 minutes
-setInterval(async () => {
-  try {
-    // 👉 Replace with real data (API / DB / strategy)
-    const data = {
-      price: Math.random() * 150,
-    };
+// // 🔁 Run every 2 minutes
+// setInterval(async () => {
+//   try {
+//     // 👉 Replace with real data (API / DB / strategy)
+//     const data = {
+//       price: Math.random() * 150,
+//     };
 
-    console.log("Checking...", data.price);
+//     console.log("Checking...", data.price);
 
-    await sendNotification("f5MpI017oxdBXM2u0hg_My:APA91bEu6vXV4fGUVIsGFgrE_p8V6zyaMzdPMoBrPjO5xnQDvfc4DX1XDPmq3Hno_VuVt1UlKy-J46SHXumnTbijsfUlWNBW6uvf1im3MBnbt4y-3p9FDSA", data.price);
+//     await sendNotification("f5MpI017oxdBXM2u0hg_My:APA91bEu6vXV4fGUVIsGFgrE_p8V6zyaMzdPMoBrPjO5xnQDvfc4DX1XDPmq3Hno_VuVt1UlKy-J46SHXumnTbijsfUlWNBW6uvf1im3MBnbt4y-3p9FDSA", data.price);
     
 
-  } catch (err) {
-    console.error("Error:", err);
-  }
-}, 500); // 2 minutes
+//   } catch (err) {
+//     console.error("Error:", err);
+//   }
+// }, 500); // 2 minutes
