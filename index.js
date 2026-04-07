@@ -257,6 +257,8 @@ function getFcm_Tokens()
       const tokensStrings = [...new Set(tokens.map(t => t.token))];
       console.log(tokensStrings);
 
+      sendNotify(tokensStrings);
+      
     } else {
       console.log("No data available");
     }
@@ -266,19 +268,33 @@ function getFcm_Tokens()
 }
 getFcm_Tokens();
 
+async function sendNotify(tokensStrings)
+{
+    await sendNotificationToAll(tokensStrings, 123.45);
+
+}
 // 🚀 Function to send notification
-async function sendNotification(token, price) {
-  await admin.messaging().send({
-    token,
+async function sendNotificationToAll(tokens, price) {
+  const message = {
+    tokens: tokens, // array of tokens
     notification: {
       title: "🚀 BUY SIGNAL",
       body: `Price crossed 100 → ${price}`,
     },
+  };
+
+  const response = await admin.messaging().sendEachForMulticast(message);
+
+  console.log(`✅ Success: ${response.successCount}`);
+  console.log(`❌ Failed: ${response.failureCount}`);
+
+  // handle invalid tokens (VERY important)
+  response.responses.forEach((res, idx) => {
+    if (!res.success) {
+      console.log("Invalid token:", tokens[idx], res.error);
+    }
   });
-
-  console.log("Notification sent ✅");
 }
-
 
 // // 🔁 Run every 2 minutes
 // setInterval(async () => {
