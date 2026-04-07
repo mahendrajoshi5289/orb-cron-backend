@@ -243,7 +243,17 @@ function getFcm_Tokens()
   const dbRef = ref(getDatabase(firebaseapp));
   get(child(dbRef, `users/`)).then((snapshot) => {
     if (snapshot.exists()) {
+      
       console.log(snapshot.val());
+      const users = snapshot.val();
+
+      // extract all FCM tokens
+      const tokens = Object.values(users)
+        .map(user => user.fm_token)
+        .filter(token => token); // remove null/undefined
+
+      console.log("found all tokens: " , tokens);
+
     } else {
       console.log("No data available");
     }
