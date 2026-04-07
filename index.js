@@ -260,7 +260,7 @@ setInterval(async () => {
 
     console.log("Checking...", data.price);
 
-    await sendNotification("USER_DEVICE_TOKEN", data.price);
+    await sendNotification("f5MpI017oxdBXM2u0hg_My:APA91bEu6vXV4fGUVIsGFgrE_p8V6zyaMzdPMoBrPjO5xnQDvfc4DX1XDPmq3Hno_VuVt1UlKy-J46SHXumnTbijsfUlWNBW6uvf1im3MBnbt4y-3p9FDSA", data.price);
     
 
   } catch (err) {
