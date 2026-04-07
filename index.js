@@ -270,30 +270,27 @@ getFcm_Tokens();
 
 async function sendNotify(tokensStrings)
 {
-    await sendNotificationToAll(tokensStrings, 123.45);
+
+  await sendNotification("dNtEcVrfXNWjsVnhu5K_e1:APA91bH4B6bT9bLmMe09bJkTErjwff5CtxeCXDm3y4w46xbI4Zx0owymTZuZubdk-RjWPurjecRNcSDb3KuDl2SQJR3G4NdTAUu9zc68_9HtEto-vdvKFN0", data.price);
+
+
+  // for (const token of tokensStrings) {
+  //   await sendNotification(token, price);
+//}
 
 }
 // 🚀 Function to send notification
-async function sendNotificationToAll(tokens, price) {
-  const message = {
-    tokens: tokens, // array of tokens
+async function sendNotification(token, price) {
+  console.log(token);
+  await admin.messaging().send({
+    token,
     notification: {
       title: "🚀 BUY SIGNAL",
       body: `Price crossed 100 → ${price}`,
     },
-  };
-
-  const response = await admin.messaging().sendEachForMulticast(message);
-
-  console.log(`✅ Success: ${response.successCount}`);
-  console.log(`❌ Failed: ${response.failureCount}`);
-
-  // handle invalid tokens (VERY important)
-  response.responses.forEach((res, idx) => {
-    if (!res.success) {
-      console.log("Invalid token:", tokens[idx], res.error);
-    }
   });
+
+  console.log("Notification sent ✅");
 }
 
 // // 🔁 Run every 2 minutes
